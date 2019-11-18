@@ -9,8 +9,9 @@ pipeline {
     }
     stage('Stage 2') {
       steps {
-        sh 'echo "Stage 2 Step 1"'
-        sh 'echo "Stage 2 Step 2"'
+        withAWS(credentials: 'aws_only', region: 'us-east-1') {
+          s3Upload(file: 'README.md', bucket: 'some-bucket', path: 'artifacts/')
+        }
       }
     }
   }
