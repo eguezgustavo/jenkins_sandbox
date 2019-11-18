@@ -10,7 +10,7 @@ pipeline {
     stage('Stage 2') {
       steps {
         withAWS(credentials: 'aws_only', region: 'us-east-1') {
-          s3Upload(file: 'README.md', bucket: 'some-bucket', path: 'artifacts/')
+          s3Upload(file: 'README.md', bucket: 'update-dev-files', path: 'artifacts/')
         }
       }
     }
