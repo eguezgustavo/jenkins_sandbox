@@ -1,9 +1,16 @@
 pipeline {
   agent any 
+
+  environment {
+    MAJOR_VERSION = 1
+    MINOR_VERSIONS = 0
+    PATCH_VERSION = 0
+  }
+
   stages {
     stage('Create Zip file') {
       steps {
-        sh './build.sh --build_version="11.0.1.2"'
+        sh './build.sh --build_version="${currentBuild.number}"'
       }
     }
     // stage('Upload to S3') {
