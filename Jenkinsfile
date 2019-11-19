@@ -10,7 +10,7 @@ pipeline {
   stages {
     stage('Create Zip file') {
       steps {
-        sh './build.sh --build_version="${currentBuild.number}"'
+        sh './build.sh --build_version="$BUILD_NUMBER"'
       }
     }
     // stage('Upload to S3') {
