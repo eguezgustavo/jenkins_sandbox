@@ -10,7 +10,7 @@ pipeline {
     stage('Upload to S3') {
       steps {
         withAWS(credentials: 'aws_only', region: 'us-east-2') {
-          s3Upload(workingDir: './', bucket: 'jenkins-test-6756', path: 'artifacts/', includePathPattern:'**/*.zip')
+          s3Upload(workingDir: 'something', bucket: 'jenkins-test-6756', path: 'artifacts/', includePathPattern:'**/*.zip')
         }
       }
     }
