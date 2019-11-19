@@ -10,9 +10,14 @@ pipeline {
   stages {
     stage('Create Zip file') {
       steps {
-        sh './build.sh --build_version="$BUILD_NUMBER"'
+        withEnv(['NEW_BUILDS_ALL_TIME=${NEW_BUILDS_ALL_TIME}']) {
+          version = VersionNumber(
+            versionNumberString: '${MAJOR_VERSION}.${MINOR_VERSIONS}.${PATCH_VERSION}.${BUILDS_ALL_TIME}'
+          );
+
+          sh './build.sh --build_version="$version"'
+        }
       }
-    }
     // stage('Upload to S3') {
     //   steps {
     //     withAWS(credentials: 'aws_only', region: 'us-east-2') {
@@ -20,5 +25,6 @@ pipeline {
     //     }
     //   }
     // }
+    }
   }
 }
