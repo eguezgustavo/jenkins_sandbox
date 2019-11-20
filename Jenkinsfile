@@ -13,7 +13,7 @@ pipeline {
     stage('Create Zip file') {
       steps {
         // sh './build.sh --build_version="${versionNumber}"'
-        echo "hola mundo ${MAJOR}.${MINOR}.${PATCH}"
+        echo "hola mundo ${params.MAJOR}.${params.MINOR}.${params.PATCH}"
       }
     }
   }
