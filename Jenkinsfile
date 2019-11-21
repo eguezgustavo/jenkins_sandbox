@@ -15,11 +15,11 @@ pipeline {
         withAWS(credentials: "aws_only", region: "us-east-2") {
           script {
 
-            LOCAL_FILE_NAME = "last-version"
+            LOCAL_FILE_NAME = "last-version.txt"
             REMOTE_FILE_NAME = "artifacts/" + "${BRANCH_NAME}/" + LOCAL_FILE_NAME
             BUCKET_NAME = "jenkins-test-6756"
 
-            fileExistsOnAWS = s3FindFiles(bucket: "${BUCKET_NAME}", onlyFiles: true, path: "${REMOTE_FILE_NAME}")
+            fileExistsOnAWS = s3DoesObjectExist(bucket: "${BUCKET_NAME}", path: "${REMOTE_FILE_NAME}")
             if (fileExistsOnAWS) {
               echo "******** FOUND"
               s3Download(file: "${LOCAL_FILE_NAME}", bucket: "${BUCKET_NAME}", path: "${REMOTE_FILE_NAME}", force: true)
