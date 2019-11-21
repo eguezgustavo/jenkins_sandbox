@@ -35,6 +35,8 @@ pipeline {
               writeFile(file: "${LOCAL_FILE_NAME}", text: "${params.MAJOR}.${params.MINOR}.${params.PATCH}")                  
               s3Upload(file: "${LOCAL_FILE_NAME}", bucket: "${BUCKET_NAME}", path: "${REMOTE_FILE_NAME}")
             }
+
+            currentBuild.displayName = versionNumber
           } 
         }
       }
