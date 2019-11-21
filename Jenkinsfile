@@ -33,7 +33,7 @@ pipeline {
                 error('Failing build because no version has been set')
               }
             }
-            
+
           }
         }
       }
@@ -41,8 +41,7 @@ pipeline {
 
     stage('Create Zip file') {
       steps {
-        // sh './build.sh --build_version="${versionNumber}"'
-        echo "hola mundo ${versionNumber}"
+        sh './build.sh --build-version="${versionNumber}"'
       }
     }
   }
