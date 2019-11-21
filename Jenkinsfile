@@ -24,7 +24,7 @@ pipeline {
               echo "******** FOUND"
               s3Download(file: "${LOCAL_FILE_NAME}", bucket: "${BUCKET_NAME}", path: "${REMOTE_FILE_NAME}", force: true)
             } else {
-              echo "******** NOT FOUND"
+              echo "******** NOT FOUND ${BUCKET_NAME}/${REMOTE_FILE_NAME}"
             }
 
             versionFileExistsOnJenkins = fileExists("${LOCAL_FILE_NAME}")
