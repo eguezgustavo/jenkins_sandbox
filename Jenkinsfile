@@ -21,7 +21,10 @@ pipeline {
 
             fileExistsOnAWS = s3FindFiles(bucket: "${BUCKET_NAME}", onlyFiles: true, path: "${REMOTE_FILE_NAME}")
             if (fileExistsOnAWS) {
+              echo "******** FOUND"
               s3Download(file: "${LOCAL_FILE_NAME}", bucket: "${BUCKET_NAME}", path: "${REMOTE_FILE_NAME}", force: true)
+            } else {
+              echo "******** NOT FOUND"
             }
 
             versionFileExistsOnJenkins = fileExists("${LOCAL_FILE_NAME}")
