@@ -1,12 +1,15 @@
 def versionNumber = ""
+final LOCAL_FILE_NAME = "last-version.txt"
+final REMOTE_FILE_NAME = "artifacts/" + BRANCH_NAME + "/" + LOCAL_FILE_NAME
+final BUCKET_NAME = "jenkins-test-6756"
 
 pipeline {
   agent any 
 
   parameters {
-    string(defaultValue: "1", description: 'Major version', name: 'MAJOR')
-    string(defaultValue: "0", description: 'Minor version', name: 'MINOR')
-    string(defaultValue: "0", description: 'Patch', name: 'PATCH')
+    string(description: 'Major version', name: 'MAJOR')
+    string(description: 'Minor version', name: 'MINOR')
+    string(description: 'Patch', name: 'PATCH')
   }
 
   stages {
@@ -14,29 +17,9 @@ pipeline {
       steps {
         withAWS(credentials: "aws_only", region: "us-east-2") {
           script {
-
-            LOCAL_FILE_NAME = "last-version.txt"
-            REMOTE_FILE_NAME = "artifacts/" + "${BRANCH_NAME}/" + LOCAL_FILE_NAME
-            BUCKET_NAME = "jenkins-test-6756"
-
-            fileExistsOnAWS = s3DoesObjectExist(bucket: "${BUCKET_NAME}", path: "${REMOTE_FILE_NAME}")
-            if (fileExistsOnAWS) {
-              echo "******** FOUND"
-              s3Download(file: "${LOCAL_FILE_NAME}", bucket: "${BUCKET_NAME}", path: "${REMOTE_FILE_NAME}", force: true)
-            } else {
-              echo "******** NOT FOUND ${BUCKET_NAME}/${REMOTE_FILE_NAME}"
-            }
-
-            versionFileExistsOnJenkins = fileExists("${LOCAL_FILE_NAME}")
-            if (versionFileExistsOnJenkins) {
-              versionNumber = readFile("${LOCAL_FILE_NAME}") + "." + "${BUILD_NUMBER}"
-            } else {
-              versionNumber = "${params.MAJOR}.${params.MINOR}.${params.PATCH}.${BUILD_NUMBER}"
-              writeFile(file: "${LOCAL_FILE_NAME}", text: "${params.MAJOR}.${params.MINOR}.${params.PATCH}")                  
-              s3Upload(file: "${LOCAL_FILE_NAME}", bucket: "${BUCKET_NAME}", path: "${REMOTE_FILE_NAME}")
-            }
-
-            currentBuild.displayName = versionNumber
+            print("**************************")
+            print(params.MAJOR)
+            print("**************************")
           } 
         }
       }
