@@ -1,10 +1,13 @@
+#addin "Cake.FileHelpers"
+
 var target = Argument("target", "Default");
-var version = Argument("build_version", "");
+var version = Argument("build-version", "");
+
 
 Task("Default")
-.Does(() =>
+.Does((context) =>
 {
-  Information("Build Version: {0} ", version);
+    ReplaceRegexInFiles("./pepe.json", "\"version\": \"(.*?)\"", string.Format("\"version\": \"{0}\"", version));
 });
 
 RunTarget(target);

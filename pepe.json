@@ -1,0 +1,21 @@
+{
+	"version": "11.10.2.3",
+	"solution": "../all.vc11.sln",
+	"sign-tool": "C:/Program Files (x86)/Microsoft SDKs/ClickOnce/SignTool/signtool.exe",
+	"artifacts-path": "./artifacts",
+	"ms-build-path": "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe",
+	"s3-drive": {
+		"bucket-name": "update-dev-files",
+		"access-key": "",
+		"secret-key": ""
+	},
+	"patch-assembly-version": true,
+	"build-release-x64": true,
+	"build-release-x86": true,
+	"build-debug-x64": false,
+	"build-debug-x86": false,
+	"sign-dlls": false,
+	"create-win-zip-package": false,
+	"create-system-zip-package": false,
+	"upload-artifacts-to-S3": false
+}
