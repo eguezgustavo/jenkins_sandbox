@@ -11,7 +11,12 @@ pipeline {
     stage("Win") {
       steps {
         dir('win') {
-          sh 'ls -al'
+          dir('bin') {
+            sh 'ls -al'
+          }
+          dir('bin.x64') {
+            sh 'ls -al'
+          }
         }
       }
     }
