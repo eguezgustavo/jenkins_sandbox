@@ -1,8 +1,3 @@
-def versionNumber = ""
-final LOCAL_FILE_NAME = "last-version.txt"
-final REMOTE_FILE_NAME = "artifacts/" + BRANCH_NAME + "/" + LOCAL_FILE_NAME
-final BUCKET_NAME = "jenkins-test-6756"
-
 pipeline {
   agent any 
 
@@ -13,16 +8,18 @@ pipeline {
   }
 
   stages {
-    stage("Create Build Number") {
+    stage("Win") {
       steps {
-        withAWS(credentials: "aws_only", region: "us-east-2") {
-          script {
+        dir('win') {
+          sh 'ls -al'
+        }
+      }
+    }
 
-              jsonfile = readJSON(file: "pepe.json")
-    					jsonfile["version"] = "a.a.a"
-    					writeJSON(file: "pepe.json", json: jsonfile)
-
-          }
+    stage("Net") {
+      steps {
+        dir('net') {
+          sh 'ls -al'
         }
       }
     }
